@@ -23,7 +23,7 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [ ] The web app displays items in a unique format, such as cards rather than lists or animated list items
+- [x] The web app displays items in a unique format, such as cards rather than lists or animated list items
 
 The following **additional** features are implemented:
 
@@ -31,22 +31,15 @@ The following **additional** features are implemented:
 
 ## Video Walkthrough
 
-**Note: please be sure to 
-
 Here's a walkthrough of implemented required features:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/agrikatheprogrammer/electroInventory/blob/main/Screen%20Recording%202025-09-25%20at%2011.16.14%20PM.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-<!-- Replace this with whatever GIF tool you used! -->
-GIF created with ...  Add GIF tool here
-<!-- Recommended tools:
-[Kap](https://getkap.co/) for macOS
-[ScreenToGif](https://www.screentogif.com/) for Windows
-[peek](https://github.com/phw/peek) for Linux. -->
+GIF created with FreeConvert
 
 ## Notes
 
-Describe any challenges encountered while building the app or any additional context you'd like to add.
+NIL
 
 ## License
 
