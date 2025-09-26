@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Category Detail</title>
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <style>
+    .image-card {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 10px;
+      display: inline-block;
+      width: 250px;
+      vertical-align: top;
+      text-align: center;
+    }
+    .image-card img {
+      max-width: 200px;
+      margin-bottom: 10px;
+    }
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 0;
+    }
+    .controls input { width: 100px; }
+    .controls button { width: 80px; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <a href="/">← Back</a>
+    <h1 id="title">Loading...</h1>
+    <p id="description"></p>
+    <div id="images-container"></div>
+  </main>
+
+  <script>
+    const folder = window.location.pathname.split("/").pop();
+    const title = document.getElementById("title");
+    const desc = document.getElementById("description");
+    const container = document.getElementById("images-container");
+    const imageCounts = {};
+
+    async function loadCategory() {
+      const cats = await fetch("/api/categories").then(r => r.json());
+      const cat = cats.find(c => c.folder === folder);
+      if (!cat) {
+        title.textContent = "Category not found";
+        return;
+      }
+
+      title.textContent = cat.name;
+      desc.textContent = cat.description || "";
+
+      const images = await fetch(`/api/images/${folder}`).then(r => r.json());
+
+      images.forEach((src) => {
+        const key = src.split("/images/").pop().trim();
+        if (!imageCounts[key]) imageCounts[key] = 0;
+
+        const card = document.createElement("div");
+        card.classList.add("image-card");
+
+        const img = document.createElement("img");
+        img.src = src;
+        img.title = `${key}`;
+        img.alt = `${key}`;
+        const countSpan = document.createElement("div");
+        countSpan.textContent = `Count: ${imageCounts[key]}`;
+
+        // Add controls
+        const addInput = document.createElement("input");
+        addInput.type = "number";
+        addInput.min = 0;
+        addInput.placeholder = "Add";
+
+        const addBtn = document.createElement("button");
+        addBtn.textContent = "Add";
+        addBtn.onclick = () => {
+          imageCounts[key] += parseInt(addInput.value) || 0;
+          countSpan.textContent = `Count: ${imageCounts[key]}`;
+          addInput.value = "";
+        };
+
+        const addSec = document.createElement("div");
+        addSec.classList.add("controls");
+        addSec.appendChild(addInput);
+        addSec.appendChild(addBtn);
+
+        // Delete controls
+        const delInput = document.createElement("input");
+        delInput.type = "number";
+        delInput.min = 0;
+        delInput.placeholder = "Delete";
+
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "Delete";
+        delBtn.onclick = () => {
+          imageCounts[key] = Math.max(imageCounts[key] - (parseInt(delInput.value) || 0), 0);
+          countSpan.textContent = `Count: ${imageCounts[key]}`;
+          delInput.value = "";
+        };
+
+        const delSec = document.createElement("div");
+        delSec.classList.add("controls");
+        delSec.appendChild(delInput);
+        delSec.appendChild(delBtn);
+
+        card.appendChild(img);
+        card.appendChild(countSpan);
+        card.appendChild(addSec);
+        card.appendChild(delSec);
+
+        container.appendChild(card);
+      });
+    }
+
+    loadCategory();
+  </script>
+</body>
+</html>

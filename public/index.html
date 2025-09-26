@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Electronics Inventory</title>
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+</head>
+<body>
+  <main class="container">
+    <h1>📦 Electronics Inventory</h1>
+    <p>Select a category to view available items:</p>
+
+    <ul id="category-list"></ul>
+  </main>
+
+  <script>
+    async function loadCategories() {
+      const res = await fetch("/api/categories");
+      const categories = await res.json();
+
+      const list = document.getElementById("category-list");
+
+      categories.forEach(cat => {
+        const li = document.createElement("li");
+        const link = document.createElement("a");
+        link.href = `/items/${cat.folder}`;
+        link.textContent = `${cat.name} (${cat.count} images)`;
+        li.appendChild(link);
+        list.appendChild(li);
+      });
+    }
+
+    loadCategories();
+  </script>
+</body>
+</html>
