@@ -43,7 +43,7 @@
         addInput.min = 0;
         addInput.placeholder = "Add";
         const addBtn = document.createElement("button");
-        addBtn.textContent = "Add";
+        addBtn.textContent = "+";
         addBtn.onclick = () => {
           imageCounts[key] += parseInt(addInput.value) || 0;
           countSpan.textContent = `Count: ${imageCounts[key]}`;
@@ -58,7 +58,7 @@
         delInput.min = 0;
         delInput.placeholder = "Delete";
         const delBtn = document.createElement("button");
-        delBtn.textContent = "Delete";
+        delBtn.textContent = "-";
         delBtn.onclick = () => {
           imageCounts[key] = Math.max(imageCounts[key] - (parseInt(delInput.value) || 0), 0);
           countSpan.textContent = `Count: ${imageCounts[key]}`;
