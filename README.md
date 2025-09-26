@@ -33,7 +33,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented required features:
 
-<img src='https://github.com/agrikatheprogrammer/electroInventory/blob/main/Screen%20Recording%202025-09-25%20at%2011.16.14%20PM.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/agrikatheprogrammer/electroInventory/blob/main/Screen%20Recording%202025-09-25%20at%2011.16.14%20PM.gif' title='Video Walkthrough' width='500' height='800' alt='Video Walkthrough' />
 
 GIF created with FreeConvert
 
