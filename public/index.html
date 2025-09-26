@@ -12,20 +12,33 @@
 
     <ul id="category-list"></ul>
   </main>
-
   <script>
     async function loadCategories() {
       const res = await fetch("/api/categories");
       const categories = await res.json();
-
       const list = document.getElementById("category-list");
-
+      list.style.display="flex";
+      list.style.flexWrap="wrap";
+      list.style.gap="10px";
       categories.forEach(cat => {
-        const li = document.createElement("li");
+        const li = document.createElement("div");
         const link = document.createElement("a");
         link.href = `/items/${cat.folder}`;
-        link.textContent = `${cat.name} (${cat.count} images)`;
+        link.textContent = `${cat.name}`;
+        const imagecount=document.createElement("p");
+        imagecount.textContent=`Items: ${cat.count}`;
+        imagecount.style.fontWeight="bold";
+        const description = document.createElement("p");
+        description.textContent = cat.description || "";
+        description.style.wordWrap = "break-word"; 
+        description.style.maxWidth = "300px"; 
         li.appendChild(link);
+        li.appendChild(description);
+        li.appendChild(imagecount);
+        li.style.border="1px solid black";
+        li.style.padding="10px";
+        li.style.marginBottom="10px";
+        li.style.width="fit-content";
         list.appendChild(li);
       });
     }

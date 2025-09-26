@@ -13,14 +13,11 @@
     <p id="description"></p>
     <div id="images-container"></div>
   </main>
-
   <script>
     const folder = window.location.pathname.split("/").pop();
     const title = document.getElementById("title");
-    const desc = document.getElementById("description");
     const container = document.getElementById("images-container");
     const imageCounts = {};
-
     async function loadCategory() {
       const cats = await fetch("/api/categories").then(r => r.json());
       const cat = cats.find(c => c.folder === folder);
@@ -28,32 +25,23 @@
         title.textContent = "Category not found";
         return;
       }
-
       title.textContent = cat.name;
-      desc.textContent = cat.description || "";
-
       const images = await fetch(`/api/images/${folder}`).then(r => r.json());
-
       images.forEach((src) => {
         const key = src.split("/images/").pop().trim();
         if (!imageCounts[key]) imageCounts[key] = 0;
-
         const card = document.createElement("div");
         card.classList.add("image-card");
-
         const img = document.createElement("img");
         img.src = src;
         img.title = `${key}`;
         img.alt = `${key}`;
         const countSpan = document.createElement("div");
         countSpan.textContent = `Count: ${imageCounts[key]}`;
-
-        // Add controls
         const addInput = document.createElement("input");
         addInput.type = "number";
         addInput.min = 0;
         addInput.placeholder = "Add";
-
         const addBtn = document.createElement("button");
         addBtn.textContent = "Add";
         addBtn.onclick = () => {
@@ -61,18 +49,14 @@
           countSpan.textContent = `Count: ${imageCounts[key]}`;
           addInput.value = "";
         };
-
         const addSec = document.createElement("div");
         addSec.classList.add("controls");
         addSec.appendChild(addInput);
         addSec.appendChild(addBtn);
-
-        // Delete controls
         const delInput = document.createElement("input");
         delInput.type = "number";
         delInput.min = 0;
         delInput.placeholder = "Delete";
-
         const delBtn = document.createElement("button");
         delBtn.textContent = "Delete";
         delBtn.onclick = () => {
@@ -80,21 +64,17 @@
           countSpan.textContent = `Count: ${imageCounts[key]}`;
           delInput.value = "";
         };
-
         const delSec = document.createElement("div");
         delSec.classList.add("controls");
         delSec.appendChild(delInput);
         delSec.appendChild(delBtn);
-
         card.appendChild(img);
         card.appendChild(countSpan);
         card.appendChild(addSec);
         card.appendChild(delSec);
-
         container.appendChild(card);
       });
     }
-
     loadCategory();
   </script>
 </body>
