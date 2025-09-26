@@ -1,0 +1,21 @@
+.images-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+.image-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    width: fit-content;
+    text-align: center;
+}
+.image-card img {
+    width: 120px;
+    height: auto;
+    border-radius: 5px;
+}
+button {
+    margin: 3px;
+}
