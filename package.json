@@ -8,6 +8,7 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
+    "@picocss/pico": "^2.1.1",
     "express": "^4.21.2"
   },
   "repository": {
